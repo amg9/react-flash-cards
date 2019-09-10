@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import CardForm from './components/CardForm';
 
 class App extends React.Component {
   state = {
@@ -9,15 +10,27 @@ class App extends React.Component {
     ],
   };
 
+  getId = () => {
+    return Math.floor((1 + Math.random()) * 10000);
+  };
+
+  addCard = (cardData) => {
+    const card = { id: this.getId(), ...cardData };
+    this.setState({ cards: [card, ...this.state.cards], });
+  };
+
   render() {
     return (
-      <div>
+      <div className="main">
         <h1>React Flash Cards</h1>
-        {
-          this.state.cards.map( card => (
-            <div>{card.front}</div>
-          ))
-        }
+        <CardForm addCardFunction={this.addCard}/>
+        <div className="cards">
+          {
+            this.state.cards.map( card => (
+              <div className="card">{card.front}</div>
+            ))
+          }
+        </div>
       </div>
     );
   };
