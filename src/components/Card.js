@@ -1,22 +1,35 @@
 import React from 'react';
-
+import CardForm from './CardForm';
 
 class Card extends React.Component {
-  state = { showFront: true, }
+  state = { showFront: true, showEdit: false, }
 
   toggleSide = () => {
     this.setState({ showFront: !this.state.showFront, });
   };
 
+  toggleEdit = () => {
+    this.setState({ showEdit: !this.state.showEdit, });
+  }
+
   render() {
-    const card = this.props
+    const { back, front, remove, id, } = this.props
     return(
-      <div key={card.id}>
+      <div key={id}>
         <div className="card" onClick={this.toggleSide}>
-          { this.state.showFront ? card.front : card.back }
+          {
+            this.state.showEdit ? 
+              <CardForm 
+                card={this.props}
+                edit={this.props.editCard}
+                toggleEdit={this.toggleEdit}
+              /> 
+            :
+              (this.state.showFront ? front : back)
+          }
         </div>
-        <button>Edit</button>
-        <button onClick={() => card.remove(card.id)}>Delete</button>
+        <button onClick={this.toggleEdit}>Edit</button>
+        <button onClick={() => remove(id)}>Delete</button>
       </div>
     );
   };

@@ -9,6 +9,7 @@ const Cards = (props) => (
           key={card.id} 
           { ...card } 
           remove={props.removeCardFunction}
+          editCard={props.editCardFunction}
         />
       ))
     }

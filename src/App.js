@@ -7,8 +7,10 @@ class App extends React.Component {
   state = {
     cards: [
       { id: 1, front:"What is react?", back:"a JavaScript library for building user interfaces", },
-      { id: 2, front:"Front", back:"Back", },
+      { id: 2, front:"MVC", back:"Models, Views, Controllers", },
+      { id: 3, front:"state", back:"JS Object", },
     ],
+    showForm: false,
   };
 
   getId = () => {
@@ -20,6 +22,15 @@ class App extends React.Component {
     this.setState({ cards: [card, ...this.state.cards], });
   };
 
+  editCard = (cardData) => {
+    const cards = this.state.cards.map( card => {
+      if (card.id === cardData.id)
+        return cardData;
+      return card;
+    });
+    this.setState({ cards, });
+  };
+
   removeCard = (id) => {
     const cards = this.state.cards.filter( card => {
       if (card.id !== id)
@@ -28,14 +39,20 @@ class App extends React.Component {
     this.setState({ cards, });
   };
 
+  toggleForm = () => {
+    this.setState({ showForm: !this.state.showForm})
+  }
+
   render() {
     return (
       <div className="main">
         <h1>React Flash Cards</h1>
-        <CardForm addCardFunction={this.addCard}/>
+        <button onClick={this.toggleForm}>Toggle Form</button>
+        { this.state.showForm && <CardForm addCardFunction={this.addCard} /> }
         <Cards 
           cards={this.state.cards} 
           removeCardFunction={this.removeCard}
+          editCardFunction={this.editCard}
         />
       </div>
     );

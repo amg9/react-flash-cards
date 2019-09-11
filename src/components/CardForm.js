@@ -3,10 +3,21 @@ import React from 'react';
 class CardForm extends React.Component {
   state = { front: "", back: "", };
 
+  componentDidMount() {
+    if (this.props.card) {
+      const { front, back, } = this.props.card;
+      this.setState({front, back, });
+    }
+  }
+
   handleSubmit = (evnt) => {
     evnt.preventDefault();
-    this.props.addCardFunction(this.state);
-    this.setState({ front: "", back: "", });
+    if (this.props.card) {
+      this.props.edit({ ...this.state, id: this.props.card.id, });
+      this.props.toggleEdit();
+    } else {
+      this.props.addCardFunction(this.state);
+    };
   };
 
   handleChange = (evnt) => {
