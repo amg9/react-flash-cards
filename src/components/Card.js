@@ -11,25 +11,15 @@ class Card extends React.Component {
   render() {
     const card = this.props
     return(
-      <div 
-        className="card" 
-        key={card.id}
-        onClick={this.toggleSide}
-      >
-        { this.state.showFront ? card.front : card.back }
+      <div key={card.id}>
+        <div className="card" onClick={this.toggleSide}>
+          { this.state.showFront ? card.front : card.back }
+        </div>
+        <button>Edit</button>
+        <button onClick={() => card.remove(card.id)}>Delete</button>
       </div>
     );
   };
 };
-
-// const Card = ({ id, front, back, showFront }) => (
-//   <div 
-//     className="card" 
-//     key={id}
-//     onClick={}
-//   >
-//     { showFront ? front : back }
-//   </div>
-// );
 
 export default Card;

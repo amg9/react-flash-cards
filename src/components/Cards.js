@@ -1,11 +1,15 @@
 import React from 'react';
 import Card from './Card';
 
-const Cards = ({cards}) => (
+const Cards = (props) => (
   <div className="cards">
     {
-      cards.map( card => (
-        <Card key={card.id} { ...card } />
+      props.cards.map( card => (
+        <Card 
+          key={card.id} 
+          { ...card } 
+          remove={props.removeCardFunction}
+        />
       ))
     }
   </div>

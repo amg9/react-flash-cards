@@ -20,12 +20,23 @@ class App extends React.Component {
     this.setState({ cards: [card, ...this.state.cards], });
   };
 
+  removeCard = (id) => {
+    const cards = this.state.cards.filter( card => {
+      if (card.id !== id)
+        return card;
+    });
+    this.setState({ cards, });
+  };
+
   render() {
     return (
       <div className="main">
         <h1>React Flash Cards</h1>
         <CardForm addCardFunction={this.addCard}/>
-        <Cards cards={this.state.cards} />
+        <Cards 
+          cards={this.state.cards} 
+          removeCardFunction={this.removeCard}
+        />
       </div>
     );
   };
