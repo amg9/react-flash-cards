@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import CardForm from './components/CardForm';
+import Cards from './components/Cards';
 
 class App extends React.Component {
   state = {
@@ -24,13 +25,7 @@ class App extends React.Component {
       <div className="main">
         <h1>React Flash Cards</h1>
         <CardForm addCardFunction={this.addCard}/>
-        <div className="cards">
-          {
-            this.state.cards.map( card => (
-              <div className="card">{card.front}</div>
-            ))
-          }
-        </div>
+        <Cards cards={this.state.cards} />
       </div>
     );
   };
