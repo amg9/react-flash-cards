@@ -1,62 +1,24 @@
 import React from 'react';
-import './App.css';
-import CardForm from './components/CardForm';
-import Cards from './components/Cards';
+import { Route, Switch, } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import FlashCards from './components/FlashCards';
+import NoMatch from './components/NoMatch';
+import Navbar from './components/Navbar';
+import { Container, } from 'semantic-ui-react';
 
-class App extends React.Component {
-  state = {
-    cards: [
-      { id: 1, front:"What is react?", back:"a JavaScript library for building user interfaces", },
-      { id: 2, front:"MVC", back:"Models, Views, Controllers", },
-      { id: 3, front:"state", back:"JS Object", },
-    ],
-    showForm: false,
-  };
-
-  getId = () => {
-    return Math.floor((1 + Math.random()) * 10000);
-  };
-
-  addCard = (cardData) => {
-    const card = { id: this.getId(), ...cardData };
-    this.setState({ cards: [card, ...this.state.cards], });
-  };
-
-  editCard = (cardData) => {
-    const cards = this.state.cards.map( card => {
-      if (card.id === cardData.id)
-        return cardData;
-      return card;
-    });
-    this.setState({ cards, });
-  };
-
-  removeCard = (id) => {
-    const cards = this.state.cards.filter( card => {
-      if (card.id !== id)
-        return card;
-    });
-    this.setState({ cards, });
-  };
-
-  toggleForm = () => {
-    this.setState({ showForm: !this.state.showForm})
-  }
-
-  render() {
-    return (
-      <div className="main">
-        <h1>React Flash Cards</h1>
-        <button onClick={this.toggleForm}>Toggle Form</button>
-        { this.state.showForm && <CardForm addCardFunction={this.addCard} /> }
-        <Cards 
-          cards={this.state.cards} 
-          removeCardFunction={this.removeCard}
-          editCardFunction={this.editCard}
-        />
-      </div>
-    );
-  };
-};
+const App = () => (
+  <>
+    <Navbar />
+    <Container>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/about" component={About}/>
+        <Route exact path="/flash-cards" component={FlashCards}/>
+        <Route component={NoMatch}/>
+      </Switch>
+    </Container>
+  </>
+);
 
 export default App;

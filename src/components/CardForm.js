@@ -18,6 +18,7 @@ class CardForm extends React.Component {
     } else {
       this.props.addCardFunction(this.state);
     };
+    this.setState({ front: "", back: "", });
   };
 
   handleChange = (evnt) => {
